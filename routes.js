@@ -216,7 +216,7 @@ router.delete('/ubicaciones/:id', (req, res) => {
 // ========== RUTAS PARA USUARIOS ==========
 // GET todos los usuarios
 router.get('/usuarios', (req, res) => {
-  connection.query('SELECT * FROM usuario', (err, results) => {
+  connection.query('SELECT * FROM usuarios', (err, results) => {
     if (err) return res.status(500).json({ error: 'Error al obtener usuarios' });
     res.json(results);
   });
@@ -224,7 +224,7 @@ router.get('/usuarios', (req, res) => {
 
 // GET un usuario por ID
 router.get('/usuarios/:id', (req, res) => {
-  connection.query('SELECT * FROM usuario WHERE id = ?', [req.params.id], (err, results) => {
+  connection.query('SELECT * FROM usuarios WHERE id = ?', [req.params.id], (err, results) => {
     if (err) return res.status(500).json({ error: 'Error al obtener usuario' });
     if (results.length === 0) return res.status(404).json({ error: 'Usuario no encontrado' });
     res.json(results[0]);
@@ -233,7 +233,7 @@ router.get('/usuarios/:id', (req, res) => {
 
 // POST crear nuevo usuario
 router.post('/usuarios', (req, res) => {
-  connection.query('INSERT INTO usuario SET ?', req.body, (err, results) => {
+  connection.query('INSERT INTO usuarios SET ?', req.body, (err, results) => {
     if (err) return res.status(500).json({ error: 'Error al crear usuario' });
     res.status(201).json({ id: results.insertId, ...req.body });
   });
@@ -241,7 +241,7 @@ router.post('/usuarios', (req, res) => {
 
 // PUT actualizar usuario
 router.put('/usuarios/:id', (req, res) => {
-  connection.query('UPDATE usuario SET ? WHERE id = ?', [req.body, req.params.id], (err) => {
+  connection.query('UPDATE usuarios SET ? WHERE id = ?', [req.body, req.params.id], (err) => {
     if (err) return res.status(500).json({ error: 'Error al actualizar usuario' });
     res.json({ message: 'Usuario actualizado correctamente' });
   });
@@ -249,7 +249,7 @@ router.put('/usuarios/:id', (req, res) => {
 
 // DELETE eliminar usuario
 router.delete('/usuarios/:id', (req, res) => {
-  connection.query('DELETE FROM usuario WHERE id = ?', [req.params.id], (err) => {
+  connection.query('DELETE FROM usuarios WHERE id = ?', [req.params.id], (err) => {
     if (err) return res.status(500).json({ error: 'Error al eliminar usuario' });
     res.json({ message: 'Usuario eliminado correctamente' });
   });
